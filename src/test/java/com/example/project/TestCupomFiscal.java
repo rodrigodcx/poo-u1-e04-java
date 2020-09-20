@@ -24,14 +24,22 @@ public class TestCupomFiscal {
 	@Test
 	public void nomeVazio() {
 		CupomFiscal.NOME_LOJA = "";
-		rodarTestarOutput("O campo nome da loja é obrigatório");
+		try {
+			CupomFiscal.main(null);
+		} catch (RuntimeException e) {
+			assertEquals("O campo nome da loja é obrigatório", e.getMessage());
+		}
 		CupomFiscal.NOME_LOJA = "Arcos Dourados Com. de Alimentos LTDA";
 	}
 	
 	@Test
 	public void logradouroVazio() {
 		CupomFiscal.LOGRADOURO = "";
-		rodarTestarOutput("O campo logradouro do endereço é obrigatório");
+		try {
+			CupomFiscal.main(null);
+		} catch (RuntimeException e) {
+			assertEquals("O campo logradouro do endereço é obrigatório", e.getMessage());
+		}
 		CupomFiscal.LOGRADOURO = "Av. Projetada Leste";
 	}
 
@@ -52,28 +60,44 @@ public class TestCupomFiscal {
 	@Test
 	public void municipioVazio() {
 		CupomFiscal.MUNICIPIO = "";
-		rodarTestarOutput("O campo município do endereço é obrigatório");
+		try {
+			CupomFiscal.main(null);
+		} catch (RuntimeException e) {
+			assertEquals("O campo município do endereço é obrigatório", e.getMessage());
+		}
 		CupomFiscal.MUNICIPIO = "Campinas";
 	}
 
 	@Test
 	public void estadoVazio() {
 		CupomFiscal.ESTADO = "";
-		rodarTestarOutput("O campo estado do endereço é obrigatório");
+		try {
+			CupomFiscal.main(null);
+		} catch (RuntimeException e) {
+			assertEquals("O campo estado do endereço é obrigatório", e.getMessage());
+		}
 	    CupomFiscal.ESTADO = "SP";
 	}
 	
 	@Test
 	public void cnpjVazio() {
 		CupomFiscal.CNPJ = "";
-		rodarTestarOutput("O campo CNPJ da loja é obrigatório");
+		try {
+			CupomFiscal.main(null);
+		} catch (RuntimeException e) {
+			assertEquals("O campo CNPJ da loja é obrigatório", e.getMessage());
+		}
 	    CupomFiscal.CNPJ = "42.591.651/0797-34";
 	}
 
 	@Test
 	public void inscricaoEstadualVazia() {
 		CupomFiscal.INSCRICAO_ESTADUAL = "";
-		rodarTestarOutput("O campo inscrição estadual da loja é obrigatório");
+		try {
+			CupomFiscal.main(null);
+		} catch (RuntimeException e) {
+			assertEquals("O campo inscrição estadual da loja é obrigatório", e.getMessage());
+		}
 		CupomFiscal.INSCRICAO_ESTADUAL = "244.898.500.113";
 	}
 	
