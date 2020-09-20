@@ -4,15 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-
 public class TestCupomFiscal {
 
 	private String BREAK = System.lineSeparator();
 
 	@Test
 	public void lojaCompleta() {
-		rodarTestarOutput("Arcos Dourados Com. de Alimentos LTDA" + BREAK + 
+		rodarTestarRetorno("Arcos Dourados Com. de Alimentos LTDA" + BREAK + 
 				"Av. Projetada Leste, 500 EUC F32/33/34" + BREAK + 
 				"Br. Sta Genebra - Campinas - SP" + BREAK + 
 				"CEP:13080-395 Tel (19) 3756-7408" + BREAK + 
@@ -25,7 +23,7 @@ public class TestCupomFiscal {
 	public void nomeVazio() {
 		CupomFiscal.NOME_LOJA = "";
 		try {
-			CupomFiscal.main(null);
+			CupomFiscal.dadosLoja();
 		} catch (RuntimeException e) {
 			assertEquals("O campo nome da loja é obrigatório", e.getMessage());
 		}
@@ -36,7 +34,7 @@ public class TestCupomFiscal {
 	public void logradouroVazio() {
 		CupomFiscal.LOGRADOURO = "";
 		try {
-			CupomFiscal.main(null);
+			CupomFiscal.dadosLoja();
 		} catch (RuntimeException e) {
 			assertEquals("O campo logradouro do endereço é obrigatório", e.getMessage());
 		}
@@ -46,7 +44,7 @@ public class TestCupomFiscal {
 	@Test
 	public void numeroZero() {
 		CupomFiscal.NUMERO = 0;
-		rodarTestarOutput("Arcos Dourados Com. de Alimentos LTDA" + BREAK +
+		rodarTestarRetorno("Arcos Dourados Com. de Alimentos LTDA" + BREAK +
 				"Av. Projetada Leste, s/n EUC F32/33/34" + BREAK +
 				"Br. Sta Genebra - Campinas - SP" + BREAK +
 				"CEP:13080-395 Tel (19) 3756-7408" + BREAK +
@@ -61,7 +59,7 @@ public class TestCupomFiscal {
 	public void municipioVazio() {
 		CupomFiscal.MUNICIPIO = "";
 		try {
-			CupomFiscal.main(null);
+			CupomFiscal.dadosLoja();
 		} catch (RuntimeException e) {
 			assertEquals("O campo município do endereço é obrigatório", e.getMessage());
 		}
@@ -72,7 +70,7 @@ public class TestCupomFiscal {
 	public void estadoVazio() {
 		CupomFiscal.ESTADO = "";
 		try {
-			CupomFiscal.main(null);
+			CupomFiscal.dadosLoja();
 		} catch (RuntimeException e) {
 			assertEquals("O campo estado do endereço é obrigatório", e.getMessage());
 		}
@@ -83,7 +81,7 @@ public class TestCupomFiscal {
 	public void cnpjVazio() {
 		CupomFiscal.CNPJ = "";
 		try {
-			CupomFiscal.main(null);
+			CupomFiscal.dadosLoja();
 		} catch (RuntimeException e) {
 			assertEquals("O campo CNPJ da loja é obrigatório", e.getMessage());
 		}
@@ -94,7 +92,7 @@ public class TestCupomFiscal {
 	public void inscricaoEstadualVazia() {
 		CupomFiscal.INSCRICAO_ESTADUAL = "";
 		try {
-			CupomFiscal.main(null);
+			CupomFiscal.dadosLoja();
 		} catch (RuntimeException e) {
 			assertEquals("O campo inscrição estadual da loja é obrigatório", e.getMessage());
 		}
@@ -118,21 +116,15 @@ public class TestCupomFiscal {
 		CupomFiscal.INSCRICAO_ESTADUAL = "";
 		
 		//E atualize o texto esperado abaixo
-		rodarTestarOutput("" + BREAK);
+		rodarTestarRetorno("" + BREAK);
 	}
 
-	private void rodarTestarOutput(String expected) {
-		PrintStream originalOut = System.out;
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(bos));
+	private void rodarTestarRetorno(String expected) {
 
 		// action
-		CupomFiscal.main(null);
+		String retorno = CupomFiscal.dadosLoja();
 
 		// assertion
-		assertEquals(expected, bos.toString());
-
-		// undo the binding in System
-		System.setOut(originalOut);
+		assertEquals(expected, retorno);
 	}
 }
